@@ -3,8 +3,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple HTML Page</title>
-    <link rel="icon" href="/static/uswds/img/favicons/favicon.ico" />
-    <link rel="stylesheet" href="/static/uswds/css/uswds.min.css" />
+    <link rel="icon" href="{{ static('/uswds/img/favicons/favicon.ico') }}" />
+    <link rel="stylesheet" href="{{ static('/uswds/css/uswds.min.css') }}" />
     <script
       type="module"
       src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.11/bundles/datastar.js"
@@ -25,12 +25,12 @@
         <nav aria-label="Primary navigation" class="usa-nav">
           <button type="button" class="usa-nav__close">
             <img
-              src="/static/uswds/img/usa-icons/close.svg"
+              src="{{ static('/uswds/img/usa-icons/close.svg') }}"
               role="img"
               alt="Close"
             />
           </button>
-          <ul class="usa-nav__primary usa-accordion">
+          <ul class="usa-nav__primary usa-accordion" hidden="">
             <li class="usa-nav__primary-item">
               <button
                 type="button"
@@ -40,7 +40,7 @@
               >
                 <span>&lt;Current section&gt;</span>
               </button>
-              <ul id="basic-nav-section-one" class="usa-nav__submenu">
+              <ul id="basic-nav-section-one" class="usa-nav__submenu" hidden="">
                 <li class="usa-nav__submenu-item">
                   <a href="javascript:void(0);"
                     ><span>&lt;Navigation link&gt;</span></a
@@ -72,7 +72,7 @@
               >
                 <span>&lt;Section&gt;</span>
               </button>
-              <ul id="basic-nav-section-two" class="usa-nav__submenu">
+              <ul id="basic-nav-section-two" class="usa-nav__submenu" hidden="">
                 <li class="usa-nav__submenu-item">
                   <a href="javascript:void(0);"
                     ><span>&lt;Navigation link&gt;</span></a
@@ -107,7 +107,7 @@
               />
               <button class="usa-button" type="submit">
                 <img
-                  src="/static/uswds/img/usa-icons-bg/search--white.svg"
+                  src="{{ static('/uswds/img/usa-icons-bg/search--white.svg') }}"
                   class="usa-search__submit-icon"
                   alt="Search"
                 />

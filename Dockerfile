@@ -1,16 +1,15 @@
-FROM python:latest
+FROM python:latest 
 
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
 
-WORKDIR /code
+WORKDIR /app
+COPY . .
 
+RUN pip install poetry
+RUN poetry install --no-root && rm -rf $POETRY_CACHE_DIR
 
-COPY ./requirements.txt /code/requirements.txt
-COPY ./static /code/static
-
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-
-
-COPY ./app /code/app
-
-
-CMD ["fastapi", "run", "app/main.py", "--port", "80"]
+EXPOSE 8000
+CMD ["poetry", "run", "python", "manage.py", "runserver"]
