@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ static('/uswds/css/uswds.min.css') }}" />
     <script
       type="module"
-      src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.11/bundles/datastar.js"
+      src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"
     ></script>
   </head>
   <body>
@@ -30,17 +30,27 @@
               alt="Close"
             />
           </button>
-          <ul class="usa-nav__primary usa-accordion" hidden="">
+          <ul
+            class="usa-nav__primary usa-accordion"
+            data-attr-hidden="!$hidden"
+            hidden=""
+          >
             <li class="usa-nav__primary-item">
               <button
                 type="button"
+                data-on-click="$hidden=!$hidden"
                 class="usa-accordion__button usa-nav__link usa-current"
-                aria-expanded="false"
+                data-attr-aria-expanded="$hidden ? 'true' : 'false'"
                 aria-controls="basic-nav-section-one"
               >
                 <span>&lt;Current section&gt;</span>
               </button>
-              <ul id="basic-nav-section-one" class="usa-nav__submenu" hidden="">
+              <ul
+                id="basic-nav-section-one"
+                class="usa-nav__submenu"
+                data-attr-hidden="!$hidden"
+                hidden=""
+              >
                 <li class="usa-nav__submenu-item">
                   <a href="javascript:void(0);"
                     ><span>&lt;Navigation link&gt;</span></a
