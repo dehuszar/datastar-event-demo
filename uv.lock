@@ -57,7 +57,7 @@ wheels = [
 ]
 
 [[package]]
-name = "datastar-django-example"
+name = "datastar-events-demo"
 version = "1.0.0"
 source = { virtual = "." }
 dependencies = [
