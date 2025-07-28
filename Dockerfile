@@ -6,6 +6,9 @@ ADD . /app
 # Install the project into `/app`
 WORKDIR /app
 
+# set uvicorn to auto-reload on code changes
+ENV UVICORN_RELOAD=true
+
 # Enable bytecode compilation
 ENV UV_COMPILE_BYTECODE=1
 
@@ -29,9 +32,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Reset the entrypoint, don't invoke `uv`
 ENTRYPOINT []
 
-# Run the FastAPI application by default
-# Uses `fastapi dev` to enable hot-reloading when the `watch` sync occurs
-# Uses `--host 0.0.0.0` to allow access from outside the container
-# CMD ["fastapi", "dev", "--host", "0.0.0.0", "./"]
-CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
-# CMD [uv run uvicorn main:app]
+CMD ["uv", "run", "uvicorn", "main:app", "--reload", "--host", "0.0.0.0"]

@@ -1,136 +1,32 @@
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple HTML Page</title>
-    <link rel="icon" href="/static/uswds/img/favicons/favicon.ico" />
-    <link rel="stylesheet" href="/static/uswds/css/uswds.min.css" />
-    <script
-      type="module"
-      src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"
-    ></script>
-  </head>
-  <body>
-    <div class="usa-overlay"></div>
-    <header class="usa-header usa-header--basic">
-      <div class="usa-nav-container">
-        <div class="usa-navbar">
-          <div class="usa-logo">
-            <em class="usa-logo__text"
-              ><a href="/" title="<Project title>">&lt;Project title&gt;</a></em
-            >
-          </div>
-          <button type="button" class="usa-menu-btn">Menu</button>
-        </div>
-        <nav aria-label="Primary navigation" class="usa-nav">
-          <button type="button" class="usa-nav__close">
-            <img
-              src="/static/uswds/img/usa-icons/close.svg"
-              role="img"
-              alt="Close"
-            />
-          </button>
-          <ul
-            class="usa-nav__primary usa-accordion"
-            data-attr-hidden="!$hidden"
-            hidden=""
-          >
-            <li class="usa-nav__primary-item">
-              <button
-                type="button"
-                data-on-click="$hidden=!$hidden"
-                class="usa-accordion__button usa-nav__link usa-current"
-                data-attr-aria-expanded="$hidden ? 'true' : 'false'"
-                aria-controls="basic-nav-section-one"
-              >
-                <span>&lt;Current section&gt;</span>
-              </button>
-              <ul
-                id="basic-nav-section-one"
-                class="usa-nav__submenu"
-                data-attr-hidden="!$hidden"
-                hidden=""
-              >
-                <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"
-                    ><span>&lt;Navigation link&gt;</span></a
-                  >
-                </li>
-                <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"
-                    ><span>&lt;Navigation link&gt;</span></a
-                  >
-                </li>
-                <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"
-                    ><span>&lt;Navigation link&gt;</span></a
-                  >
-                </li>
-                <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"
-                    ><span>&lt;Navigation link&gt;</span></a
-                  >
-                </li>
-              </ul>
-            </li>
-            <li class="usa-nav__primary-item">
-              <button
-                type="button"
-                class="usa-accordion__button usa-nav__link"
-                aria-expanded="false"
-                aria-controls="basic-nav-section-two"
-              >
-                <span>&lt;Section&gt;</span>
-              </button>
-              <ul id="basic-nav-section-two" class="usa-nav__submenu" hidden="">
-                <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"
-                    ><span>&lt;Navigation link&gt;</span></a
-                  >
-                </li>
-                <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"
-                    ><span>&lt;Navigation link&gt;</span></a
-                  >
-                </li>
-                <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"
-                    ><span>&lt;Navigation link&gt;</span></a
-                  >
-                </li>
-              </ul>
-            </li>
-            <li class="usa-nav__primary-item">
-              <a href="javascript:void(0);" class="usa-nav-link"
-                ><span>&lt;Simple link&gt;</span></a
-              >
-            </li>
-          </ul>
-          <section aria-label="Search component">
-            <form class="usa-search usa-search--small" role="search">
-              <label class="usa-sr-only" for="search-field">Search</label>
-              <input
-                class="usa-input"
-                id="search-field"
-                type="search"
-                name="search"
-              />
-              <button class="usa-button" type="submit">
-                <img
-                  src="/static/uswds/img/usa-icons-bg/search--white.svg"
-                  class="usa-search__submit-icon"
-                  alt="Search"
-                />
-              </button>
-            </form>
-          </section>
-        </nav>
-      </div>
-    </header>
-    <main>
-      <section>
-        <h2>Hello World!</h2>
-      </section>
-    </main>
-  </body>
-</html>
+{% extends "base.html" %} {% block content %}
+<h2>{% block title %}Home{% endblock %}</h2>
+<p>
+  Hey there! Thanks for checking this little project out. Let me give you a
+  quick tour. This site is intended to run from a local docker process, but if
+  you're reading this, you probably already figured that out.
+</p>
+<p>
+  When I work on little sample projects like this, I like to try to incorporate
+  a few things at a time that I am interested in learning. In this case, I
+  primarily wanted to explore Datastar, a new hypermedia library. If you don't
+  know what any of that means, don't worry, I'll explain in more detail on the
+  <a href="/about/datastar">Datastar</a> detail page.
+</p>
+<p>
+  The main thing I wanted to play with in Datastar is its use of
+  <a href="/about/events">Server Sent Events (SSE)</a> to push updates to the
+  client. Having created event-sourced systems in the past, getting the client
+  to become "eventually consistent" with new events which have been published
+  since the page was loaded has always been a challenge.
+</p>
+<p>
+  Having been developing software primarily in JavaScript, I also wanted to
+  build a <a href="/about/backend">backend with Python</a>. I'll go into some
+  detail around how that backend is set up and how the events are sent to the
+  browser.
+</p>
+<p>
+  Finally, I wanted to use the
+  <a href="/about/uswds">US Web Design System (USWDS)</a> to build the UI.
+</p>
+{% endblock %}

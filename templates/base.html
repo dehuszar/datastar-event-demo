@@ -1,0 +1,134 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Datastart Event Demo :: {% block title %}{% endblock %}</title>
+    <link rel="icon" href="/static/uswds/img/favicons/favicon.ico" />
+    <link rel="stylesheet" href="/static/uswds/css/uswds.min.css" />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"
+    ></script>
+  </head>
+  <body>
+    <div class="usa-overlay"></div>
+    <header class="usa-header usa-header--basic">
+      <div class="usa-nav-container">
+        <div class="usa-navbar">
+          <div class="usa-logo">
+            <em class="usa-logo__text"
+              ><a href="/" title="DataStar Event Demo"
+                >Datastar Event Demo</a
+              ></em
+            >
+          </div>
+          <button type="button" class="usa-menu-btn">Menu</button>
+        </div>
+        <nav aria-label="Primary navigation" class="usa-nav">
+          <button type="button" class="usa-nav__close">
+            <img
+              src="/static/uswds/img/usa-icons/close.svg"
+              role="img"
+              alt="Close"
+            />
+          </button>
+          <ul
+            class="usa-nav__primary usa-accordion"
+            data-attr-hidden="!$section-one-hidden"
+            hidden=""
+          >
+            <li class="usa-nav__primary-item">
+              <button
+                type="button"
+                data-on-click="$section-one-hidden=!$section-one-hidden"
+                class="usa-accordion__button usa-nav__link usa-current"
+                data-attr-aria-expanded="$section-one-hidden ? 'true' : 'false'"
+                aria-controls="basic-nav-section-one"
+              >
+                <span>About</span>
+              </button>
+              <ul
+                id="basic-nav-section-one"
+                class="usa-nav__submenu"
+                data-attr-hidden="!$section-one-hidden"
+                hidden=""
+              >
+                <li class="usa-nav__submenu-item">
+                  <a href="/about/backend"><span>The Backend</span></a>
+                </li>
+                <li class="usa-nav__submenu-item">
+                  <a href="/about/datastar"><span>Datastar</span></a>
+                </li>
+                <li class="usa-nav__submenu-item">
+                  <a href="/about/events"><span>Events</span></a>
+                </li>
+                <li class="usa-nav__submenu-item">
+                  <a href="/about/uswds"><span>USWDS</span></a>
+                </li>
+              </ul>
+            </li>
+            <li class="usa-nav__primary-item">
+              <button
+                type="button"
+                data-on-click="$section-two-hidden=!$section-two-hidden"
+                class="usa-accordion__button usa-nav__link"
+                data-attr-aria-expanded="$section-two-hidden ? 'true' : 'false'"
+                aria-controls="basic-nav-section-two"
+              >
+                <span>Demos</span>
+              </button>
+              <ul
+                id="basic-nav-section-two"
+                class="usa-nav__submenu"
+                data-attr-hidden="!$section-two-hidden"
+                hidden=""
+              >
+                <li class="usa-nav__submenu-item">
+                  <a href="javascript:void(0);"><span>Tell me a story</span></a>
+                </li>
+                <li class="usa-nav__submenu-item">
+                  <a href="javascript:void(0);"
+                    ><span>&lt;Navigation link&gt;</span></a
+                  >
+                </li>
+                <li class="usa-nav__submenu-item">
+                  <a href="javascript:void(0);"
+                    ><span>&lt;Navigation link&gt;</span></a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="usa-nav__primary-item">
+              <a href="https://samuel-allen.com" class="usa-nav-link"
+                ><span>Personal Site</span></a
+              >
+            </li>
+          </ul>
+          <section aria-label="Search component">
+            <form class="usa-search usa-search--small" role="search">
+              <label class="usa-sr-only" for="search-field">Search</label>
+              <input
+                class="usa-input"
+                id="search-field"
+                type="search"
+                name="search"
+              />
+              <button class="usa-button" type="submit">
+                <img
+                  src="/static/uswds/img/usa-icons-bg/search--white.svg"
+                  class="usa-search__submit-icon"
+                  alt="Search"
+                />
+              </button>
+            </form>
+          </section>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="usa-section">
+        <div class="grid-container">{% block content %}{% endblock %}</div>
+      </section>
+    </main>
+  </body>
+</html>
