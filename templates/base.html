@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -24,7 +26,10 @@
           </div>
           <button type="button" class="usa-menu-btn">Menu</button>
         </div>
-        <nav aria-label="Primary navigation" class="usa-nav">
+<!-- Each button on hover will expose the menu with basic CSS rules-->
+<!-- When the button is clicked on, it sets a signal binding on the top nav as to which menu is selected; all others become closed -->
+        {% block nav %}
+        <nav aria-label="Primary navigation" class="usa-nav" data-signals:show-section="">
           <button type="button" class="usa-nav__close">
             <img
               src="/static/uswds/img/usa-icons/close.svg"
@@ -34,15 +39,15 @@
           </button>
           <ul
             class="usa-nav__primary usa-accordion"
-            data-attr-hidden="!$section-one-hidden"
+            data-attr:hidden="$showSection != 'one'"
             hidden=""
           >
             <li class="usa-nav__primary-item">
               <button
                 type="button"
-                data-on-click="$section-one-hidden=!$section-one-hidden"
-                class="usa-accordion__button usa-nav__link usa-current"
-                data-attr-aria-expanded="$section-one-hidden ? 'true' : 'false'"
+                data-on:click="$showSection='one'"
+                class="usa-accordion__button usa-nav__link{% if is_primary_page == True %} usa-current{% endif %}"
+                data-attr-aria-expanded="$showSection == 'one' ? 'true' : 'false'"
                 aria-controls="basic-nav-section-one"
               >
                 <span>About</span>
@@ -50,9 +55,8 @@
               <ul
                 id="basic-nav-section-one"
                 class="usa-nav__submenu"
-                data-attr-hidden="!$section-one-hidden"
-                hidden=""
-              >
+                data-show="$showSection == 'one'"
+                >
                 <li class="usa-nav__submenu-item">
                   <a href="/about/backend"><span>The Backend</span></a>
                 </li>
@@ -70,9 +74,9 @@
             <li class="usa-nav__primary-item">
               <button
                 type="button"
-                data-on-click="$section-two-hidden=!$section-two-hidden"
-                class="usa-accordion__button usa-nav__link"
-                data-attr-aria-expanded="$section-two-hidden ? 'true' : 'false'"
+                data-on:click="$showSection='two'"
+                class="usa-accordion__button usa-nav__link{% if is_secondary_page == True %} usa-current{% endif %}"
+                data-attr-aria-expanded="$showSection == 'two'"
                 aria-controls="basic-nav-section-two"
               >
                 <span>Demos</span>
@@ -80,21 +84,11 @@
               <ul
                 id="basic-nav-section-two"
                 class="usa-nav__submenu"
-                data-attr-hidden="!$section-two-hidden"
+                data-attr:hidden="$showSection != 'two'"
                 hidden=""
               >
                 <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"><span>Tell me a story</span></a>
-                </li>
-                <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"
-                    ><span>&lt;Navigation link&gt;</span></a
-                  >
-                </li>
-                <li class="usa-nav__submenu-item">
-                  <a href="javascript:void(0);"
-                    ><span>&lt;Navigation link&gt;</span></a
-                  >
+                  <a href="/demos/story-time"><span>Tell me a story</span></a>
                 </li>
               </ul>
             </li>
@@ -123,6 +117,7 @@
             </form>
           </section>
         </nav>
+        {% endblock %}
       </div>
     </header>
     <main>

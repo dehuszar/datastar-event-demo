@@ -1,0 +1,108 @@
+{% block header %}
+<header class="usa-header usa-header--basic">
+  <div class="usa-nav-container">
+    <div class="usa-navbar">
+      <div class="usa-logo">
+        <em class="usa-logo__text"
+          ><a href="/" title="DataStar Event Demo">Datastar Event Demo</a></em
+        >
+      </div>
+      <button type="button" class="usa-menu-btn">Menu</button>
+    </div>
+    <!-- Each button on hover will expose the menu with basic CSS rules-->
+    <!-- When the button is clicked on, it sets a signal binding on the top nav as to which menu is selected; all others become closed -->
+    <nav
+      aria-label="Primary navigation"
+      class="usa-nav"
+      data-signals:show-section=""
+    >
+      <button type="button" class="usa-nav__close">
+        <img
+          src="/static/uswds/img/usa-icons/close.svg"
+          role="img"
+          alt="Close"
+        />
+      </button>
+      <ul
+        class="usa-nav__primary usa-accordion"
+        data-attr:hidden="$showSection != 'one'"
+        hidden=""
+      >
+        <li class="usa-nav__primary-item">
+          <button
+            type="button"
+            data-on:click="$showSection='one'"
+            class="usa-accordion__button usa-nav__link"
+            data-attr-aria-expanded="$showSection == 'one'"
+            aria-controls="basic-nav-section-one"
+          >
+            <span>About</span>
+          </button>
+          <ul
+            id="basic-nav-section-one"
+            class="usa-nav__submenu"
+            data-show="$showSection == 'one'"
+          >
+            <li class="usa-nav__submenu-item">
+              <a href="/about/backend"><span>The Backend</span></a>
+            </li>
+            <li class="usa-nav__submenu-item">
+              <a href="/about/datastar"><span>Datastar</span></a>
+            </li>
+            <li class="usa-nav__submenu-item">
+              <a href="/about/events"><span>Events</span></a>
+            </li>
+            <li class="usa-nav__submenu-item">
+              <a href="/about/uswds"><span>USWDS</span></a>
+            </li>
+          </ul>
+        </li>
+        <li class="usa-nav__primary-item">
+          <button
+            type="button"
+            data-on:click="$showSection='two'"
+            class="usa-accordion__button usa-nav__link"
+            data-attr-aria-expanded="$showSection == 'two'"
+            aria-controls="basic-nav-section-two"
+          >
+            <span>Demos</span>
+          </button>
+          <ul
+            id="basic-nav-section-two"
+            class="usa-nav__submenu"
+            data-attr:hidden="$showSection != 'two'"
+            hidden=""
+          >
+            <li class="usa-nav__submenu-item">
+              <a href="/demos/story-time"><span>Tell me a story</span></a>
+            </li>
+          </ul>
+        </li>
+        <li class="usa-nav__primary-item">
+          <a href="https://samuel-allen.com" class="usa-nav-link"
+            ><span>Personal Site</span></a
+          >
+        </li>
+      </ul>
+      <section aria-label="Search component">
+        <form class="usa-search usa-search--small" role="search">
+          <label class="usa-sr-only" for="search-field">Search</label>
+          <input
+            class="usa-input"
+            id="search-field"
+            type="search"
+            name="search"
+          />
+          <button class="usa-button" type="submit">
+            <img
+              src="/static/uswds/img/usa-icons-bg/search--white.svg"
+              class="usa-search__submit-icon"
+              alt="Search"
+            />
+          </button>
+        </form>
+      </section>
+    </nav>
+  </div>
+</header>
+{% endblock %}

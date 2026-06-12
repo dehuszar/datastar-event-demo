@@ -1,32 +1,34 @@
-{% extends "base.html" %} {% block content %}
-<h2>{% block title %}Home{% endblock %}</h2>
-<p>
-  Hey there! Thanks for checking this little project out. Let me give you a
-  quick tour. This site is intended to run from a local docker process, but if
-  you're reading this, you probably already figured that out.
-</p>
-<p>
-  When I work on little sample projects like this, I like to try to incorporate
-  a few things at a time that I am interested in learning. In this case, I
-  primarily wanted to explore Datastar, a new hypermedia library. If you don't
-  know what any of that means, don't worry, I'll explain in more detail on the
-  <a href="/about/datastar">Datastar</a> detail page.
-</p>
-<p>
-  The main thing I wanted to play with in Datastar is its use of
-  <a href="/about/events">Server Sent Events (SSE)</a> to push updates to the
-  client. Having created event-sourced systems in the past, getting the client
-  to become "eventually consistent" with new events which have been published
-  since the page was loaded has always been a challenge.
-</p>
-<p>
-  Having been developing software primarily in JavaScript, I also wanted to
-  build a <a href="/about/backend">backend with Python</a>. I'll go into some
-  detail around how that backend is set up and how the events are sent to the
-  browser.
-</p>
-<p>
-  Finally, I wanted to use the
-  <a href="/about/uswds">US Web Design System (USWDS)</a> to build the UI.
-</p>
+{% extends "base.html" %}
+{% block header %}{% endblock %}
+{% block content %}
+  <h2>{% block title %}Home{% endblock %}</h2>
+  <p>
+    Hey there! Thanks for checking this little project out. Let me give you a
+    quick tour. This site is intended to run from a local docker process, but if
+    you're reading this, you probably already figured that out.
+  </p>
+  <p>
+    When I work on little sample projects like this, I like to try to incorporate
+    a few things at a time that I am interested in learning. In this case, I
+    primarily wanted to explore Datastar, a new hypermedia library. If you don't
+    know what any of that means, don't worry, I'll explain in more detail on the
+    <a href="/about/datastar">Datastar</a> detail page.
+  </p>
+  <p>
+    The main thing I wanted to play with in Datastar is its use of
+    <a href="/about/events">Server Sent Events (SSE)</a> to push updates to the
+    client. Having created event-sourced systems in the past, getting the client
+    to become "eventually consistent" with new events which have been published
+    since the page was loaded has always been a challenge.
+  </p>
+  <p>
+    Having been developing software primarily in JavaScript, I also wanted to
+    build a <a href="/about/backend">backend with Python</a>. I'll go into some
+    detail around how that backend is set up and how the events are sent to the
+    browser.
+  </p>
+  <p>
+    Finally, I wanted to use the
+    <a href="/about/uswds">US Web Design System (USWDS)</a> to build the UI.
+  </p>
 {% endblock %}
