@@ -69,7 +69,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "datastar-py", directory = "ds-sdk" },
+    { name = "datastar-py", specifier = ">=1.0.2" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.116.1" },
     { name = "jinja2", specifier = ">=3.1.6" },
     { name = "uvicorn", specifier = ">=0.35.0" },
@@ -77,22 +77,11 @@ requires-dist = [
 
 [[package]]
 name = "datastar-py"
-version = "0.5.0"
-source = { directory = "ds-sdk" }
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "django", specifier = ">=4.2.17" },
-    { name = "fastapi", extras = ["standard"], specifier = ">=0.115.4" },
-    { name = "flask", extras = ["async"], specifier = ">=3.0.3" },
-    { name = "litestar", specifier = ">=2.15.2" },
-    { name = "python-fasthtml", marker = "python_full_version >= '3.11'", specifier = ">=0.12.0" },
-    { name = "quart", specifier = ">=0.19.9" },
-    { name = "sanic", specifier = ">=24.6.0" },
-    { name = "starlette", specifier = ">=0.46.1" },
-    { name = "uvicorn", specifier = ">=0.32.1" },
+version = "1.0.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d9/56/697b0c2300985f5143384696fd4854cfdcadf6839577fde49d5b9e0d9000/datastar_py-1.0.2.tar.gz", hash = "sha256:c6f86e2b48c3a5ea08570a4e958267307a5ffc0253c259f054dc3bb6de8a2c0e", size = 129512, upload-time = "2026-06-02T17:47:58.417Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0f/14/2cffb0ef9a69d113349f483786c435abf06ea5091e275328cc163b2a2f23/datastar_py-1.0.2-py3-none-any.whl", hash = "sha256:d84735e5cc55ed85e02f80bbab01c2877e7ed7a6185cc144f802a9821616c9d3", size = 19727, upload-time = "2026-06-02T17:47:57.285Z" },
 ]
 
 [[package]]
