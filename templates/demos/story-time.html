@@ -3,13 +3,37 @@
 {% block header %}{% endblock %}
 {% block content %}
 <h2>{% block title %}Story Time{% endblock %}</h2>
-<ul>
-  <li>
-    <button data-on:click="@get('/demos/story-time/read/common-sense--thomas-paine')">Common Sense, by Thomas Paine</button>
-  </li>
-  <li>
-    <button data-on:click="@get('/demos/story-time/read/the-souls-of-black-folk--web-dubois')">The Souls of Black Folk, by W.E.B DuBois</button>
-  </li>
-</ul>
-<section id="book-contents"></section>
+<!-- wraps block in a signal definition; should probably be a component -->
+<div data-signals="{
+  paused: false,
+  wpm: 600,
+  connId: '',
+  offset: 0
+}">
+  <!-- playback controls for book streaming -->
+  <div data-show="$connId">
+    <button data-on:click="
+      $paused = !$paused;
+      @post('/demos/story-time/control')
+    ">
+      <span data-text="$paused ? '▶ Resume' : '⏸ Pause'"></span>
+    </button>
+    <label>
+      Speed:
+      <input type="range" min="100" max="1200" step="50"
+        data-bind:wpm
+        data-on:input="@post('/demos/story-time/control')">
+      <span data-text="$wpm"></span> wpm
+    </label>
+  </div>
+  <ul>
+    <li>
+      <button data-on:click="@get('/demos/story-time/read/common-sense--thomas-paine')">Common Sense, by Thomas Paine</button>
+    </li>
+    <li>
+      <button data-on:click="@get('/demos/story-time/read/the-souls-of-black-folk--web-dubois')">The Souls of Black Folk, by W.E.B DuBois</button>
+    </li>
+  </ul>
+  <section id="book-contents"></section>
+</div>
 {% endblock %}

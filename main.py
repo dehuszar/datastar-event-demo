@@ -5,9 +5,9 @@
 #   "uvicorn",
 # ]
 # [tool.uv.sources]
-# datastar-py = { path = "../../" }
 # ///
 
+import uuid
 from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
@@ -23,6 +23,8 @@ from datastar_py.fastapi import (
     ServerSentEventGenerator,
 )
 
+from datastar_py.consts import ElementPatchMode
+
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -33,6 +35,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Set up Jinja2 templates directory
 templates = Jinja2Templates(directory="templates")
+
+connections: dict[str, dict] = {}
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -65,35 +69,87 @@ async def story_time(request: Request):
     return templates.TemplateResponse("demos/story-time.html", {"request": request})
 
 
-async def build_book_contents(snippet):
+async def build_book_contents(snippet, word_offset: int, conn_id: str):
+    """Stream words, checking per-connection pause/speed state."""
     current_text = ""
 
-    for word in snippet:
+    for i, word in enumerate(snippet):
+        if i < word_offset:
+            continue
+
+        # check pause state
+        control = connections.get(conn_id)
+        if control is None:
+            break  # connection was cleaned up
+
+        await control["pause_event"].wait()  # blocks when paused
+
+        delay = 60.0 / control["wpm"] if control["wpm"] > 0 else 0.1
+
         current_text += f" {word}"
         yield ServerSentEventGenerator.patch_elements(
             f"<section id='book-contents'>{current_text}</section>"
         )
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(delay)
 
 
 @app.get("/demos/story-time/read/{book_title}", response_class=StreamingResponse)
 async def read_book(request: Request, signals: ReadSignals):
-    print("signals: ", signals)
     book_title = request.path_params["book_title"]
-    # Open the file in read mode
+    word_offset = (signals or {}).get("offset", 0)
+
+    # register per-connection state
+    conn_id = str(uuid.uuid4())
+    pause_event = asyncio.Event()
+    pause_event.set()  # start unpaused
+    connections[conn_id] = {
+        "pause_event": pause_event,
+        "wpm": (signals or {}).get("wpm", 600),
+    }
+
     file = open(f"./static/books/{book_title}.txt", "r")
 
     # Read the entire content of the file
     content = file.read()
     # FIXME :: need to start the content after the following marker:
-    # start_of_book = content  # *** START OF THE PROJECT GUTENBERG EBOOK
-    #
+    # *** START OF THE PROJECT GUTENBERG EBOOK <name of book> ***
+    # can probably just find that marker and set the word_offset to be that number + 1
     # Also need to ensure \n characters are used to assemble <p> tags
-    #
-    # Also need to have a way for the client to pause or cancel the stream
-    #
     # Close the file
     file.close()
     snippet = content.split(" ")
 
-    return DatastarResponse(build_book_contents(snippet))
+    # Build the response generator
+    async def stream():
+        # with the connection now established, tell the client what it's connection id is
+        yield ServerSentEventGenerator.patch_signals(
+            {"connId": conn_id, "offset": word_offset}
+        )
+        # then stream the book
+        async for event in build_book_contents(snippet, word_offset, conn_id):
+            yield event
+        # cleanup on connection end
+        connections.pop(conn_id, None)
+
+    return DatastarResponse(stream())
+
+
+@app.post("/demos/story-time/control", response_class=DatastarResponse)
+async def control_stream(signals: ReadSignals):
+    """Update per-connection stream attributes (pause, speed, etc.)."""
+    conn_id = (signals or {}).get("connId")
+    if not conn_id or conn_id not in connections:
+        return DatastarResponse()  # 204 — no-op
+
+    control = connections[conn_id]
+
+    if "paused" in signals:
+        if signals["paused"]:
+            control["pause_event"].clear()  # blocks the generator
+        else:
+            control["pause_event"].set()  # unblocks the generator
+
+    if "wpm" in signals:
+        control["wpm"] = float(signals["wpm"])
+
+    return DatastarResponse()  # 204
