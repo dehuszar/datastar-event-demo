@@ -6,7 +6,7 @@
 <!-- wraps block in a signal definition; should probably be a component -->
 <div data-signals="{
   paused: false,
-  wpm: 600,
+  wps: 5,
   connId: '',
   offset: 0
 }">
@@ -20,10 +20,10 @@
     </button>
     <label>
       Speed:
-      <input type="range" min="100" max="1200" step="50"
-        data-bind:wpm
+      <input type="range" min="0" max="100" step="5"
+        data-bind:wps
         data-on:input="@post('/demos/story-time/control')">
-      <span data-text="$wpm"></span> wpm
+      <span data-text="$wps"></span> wps
     </label>
   </div>
   <ul>

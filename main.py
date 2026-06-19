@@ -84,7 +84,7 @@ async def build_book_contents(snippet, word_offset: int, conn_id: str):
 
         await control["pause_event"].wait()  # blocks when paused
 
-        delay = 60.0 / control["wpm"] if control["wpm"] > 0 else 0.1
+        delay = 1.0 / control["wps"] if control["wps"] > 0 else 0.1
 
         current_text += f" {word}"
         yield ServerSentEventGenerator.patch_elements(
@@ -104,7 +104,7 @@ async def read_book(request: Request, signals: ReadSignals):
     pause_event.set()  # start unpaused
     connections[conn_id] = {
         "pause_event": pause_event,
-        "wpm": (signals or {}).get("wpm", 600),
+        "wps": (signals or {}).get("wps", 5),
     }
 
     file = open(f"./static/books/{book_title}.txt", "r")
@@ -141,15 +141,20 @@ async def control_stream(signals: ReadSignals):
     if not conn_id or conn_id not in connections:
         return DatastarResponse()  # 204 — no-op
 
+    is_paused = False
+
     control = connections[conn_id]
 
-    if "paused" in signals:
-        if signals["paused"]:
-            control["pause_event"].clear()  # blocks the generator
-        else:
-            control["pause_event"].set()  # unblocks the generator
+    if signals["paused"] or signals["wps"] == 0:
+        control["pause_event"].clear()  # blocks the generator
+        is_paused = True
+    else:
+        control["pause_event"].set()  # unblocks the generator
+        control["wps"] = signals["wps"]
 
-    if "wpm" in signals:
-        control["wpm"] = float(signals["wpm"])
+    async def update_client_signals():
+        yield ServerSentEventGenerator.patch_signals(
+            {"connId": conn_id, "paused": is_paused}
+        )
 
-    return DatastarResponse()  # 204
+    return DatastarResponse(update_client_signals())  # 204
