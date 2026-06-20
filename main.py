@@ -145,16 +145,25 @@ async def control_stream(signals: ReadSignals):
 
     control = connections[conn_id]
 
-    if signals["paused"] or signals["wps"] == 0:
-        control["pause_event"].clear()  # blocks the generator
+    # if wps is currently set to 0, but a signal is setting it above 0, unpause
+    if control["wps"] == 0 and signals["wps"] > 0:
+        control["wps"] = signals["wps"]
+        control["pause_event"].set()
+    # if there is a pause signal, or the current wps is set above 0, but the
+    # incoming signal sets it to zero, either action pauses the event stream
+    elif signals["paused"] or (
+        not signals["paused"] and signals["wps"] == 0 and control["wps"] > 0
+    ):
+        control["wps"] = signals["wps"]
+        control["pause_event"].clear()
         is_paused = True
     else:
-        control["pause_event"].set()  # unblocks the generator
-        control["wps"] = signals["wps"]
+        control["wps"] = 1 if signals["wps"] == 0 else signals["wps"]
+        control["pause_event"].set()
 
     async def update_client_signals():
         yield ServerSentEventGenerator.patch_signals(
-            {"connId": conn_id, "paused": is_paused}
+            {"connId": conn_id, "paused": is_paused, "wps": control["wps"]}
         )
 
     return DatastarResponse(update_client_signals())  # 204
