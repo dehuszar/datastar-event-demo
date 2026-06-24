@@ -86,7 +86,8 @@ async def build_book_contents(snippet, word_offset: int, conn_id: str):
 
         delay = 1.0 / control["wps"] if control["wps"] > 0 else 0.1
 
-        current_text += f" {word}"
+        formatted_text = word.replace("\n", "<br>")
+        current_text += f" {formatted_text}"
         yield ServerSentEventGenerator.patch_elements(
             f"<section id='book-contents'>{current_text}</section>"
         )
