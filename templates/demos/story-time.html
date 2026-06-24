@@ -10,6 +10,19 @@
   connId: '',
   offset: 0
 }">
+  <header>
+    <ul>
+      <li>
+        <button data-on:click="@get('/demos/story-time/read/common-sense--thomas-paine')">Common Sense, by Thomas Paine</button>
+      </li>
+      <li>
+        <button data-on:click="@get('/demos/story-time/read/the-souls-of-black-folk--web-dubois')">The Souls of Black Folk, by W.E.B DuBois</button>
+      </li>
+      <li>
+        <button data-on:click="@get('/demos/story-time/read/the-secret-of-chimneys--agatha-christie')">The Secret of Chimneys</button>
+      </li>
+    </ul>
+  </header>
   <!-- playback controls for book streaming -->
   <div data-show="$connId">
     <button data-on:click="
@@ -26,14 +39,6 @@
       <span data-text="$wps"></span> wps
     </label>
   </div>
-  <ul>
-    <li>
-      <button data-on:click="@get('/demos/story-time/read/common-sense--thomas-paine')">Common Sense, by Thomas Paine</button>
-    </li>
-    <li>
-      <button data-on:click="@get('/demos/story-time/read/the-souls-of-black-folk--web-dubois')">The Souls of Black Folk, by W.E.B DuBois</button>
-    </li>
-  </ul>
   <section id="book-contents"></section>
 </div>
 {% endblock %}

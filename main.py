@@ -115,6 +115,15 @@ async def read_book(request: Request, signals: ReadSignals):
     # *** START OF THE PROJECT GUTENBERG EBOOK <name of book> ***
     # can probably just find that marker and set the word_offset to be that number + 1
     # Also need to ensure \n characters are used to assemble <p> tags
+    marker = "*** START OF THE PROJECT GUTENBERG EBOOK "
+    marker_index = content.find(marker)
+    if marker_index != -1:
+        # Find the end of this line
+        line_end_index = content.find("\n", marker_index)
+        if line_end_index != -1:
+            content = content[line_end_index + 1 :]
+        else:
+            content = content[marker_index:]
     # Close the file
     file.close()
     snippet = content.split(" ")
