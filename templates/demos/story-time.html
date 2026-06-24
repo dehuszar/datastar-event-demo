@@ -4,7 +4,7 @@
 {% block content %}
 <h2>{% block title %}Story Time{% endblock %}</h2>
 <!-- wraps block in a signal definition; should probably be a component -->
-<div data-signals="{
+<div id="story-time-wrapper" data-signals="{
   paused: false,
   wps: 5,
   connId: '',
@@ -13,13 +13,13 @@
   <header>
     <ul>
       <li>
-        <button data-on:click="@get('/demos/story-time/read/common-sense--thomas-paine')">Common Sense, by Thomas Paine</button>
+        <button data-on:click="@get('/demos/story-time/read/common-sense--thomas-paine')" title="Common Sense, by Thomas Paine"><img src="/static/books/common-sense-cover.jpg" alt="book cover for Common Sense, by Thomas Paine"></button>
       </li>
       <li>
-        <button data-on:click="@get('/demos/story-time/read/the-souls-of-black-folk--web-dubois')">The Souls of Black Folk, by W.E.B DuBois</button>
+        <button data-on:click="@get('/demos/story-time/read/the-souls-of-black-folk--web-dubois')" title="The Souls of Black Folk, by W.E.B DuBois"><img src="/static/books/the-souls-of-black-folk-cover.jpg" alt="book cover for The Souls of Black Folk, by W.E.B DuBois"></button>
       </li>
       <li>
-        <button data-on:click="@get('/demos/story-time/read/the-secret-of-chimneys--agatha-christie')">The Secret of Chimneys</button>
+        <button data-on:click="@get('/demos/story-time/read/the-secret-of-chimneys--agatha-christie')" title="The Secret of Chimneys, by Agatha Christie"><img src="/static/books/the-secret-of-chimneys-cover.jpg" alt="The Secret of Chimneys, by Agatha Christie"></button>
       </li>
     </ul>
   </header>
