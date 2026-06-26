@@ -5,6 +5,4 @@ docker run --name datastar-events-demo \
   -v /app/.venv \
   --net=host \
   --rm \
-  datastar-events-demo 
-
-
+  datastar-events-demo
