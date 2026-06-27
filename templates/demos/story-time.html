@@ -23,22 +23,24 @@
       </li>
     </ul>
   </header>
-  <!-- playback controls for book streaming -->
-  <div data-show="$connId">
-    <button data-on:click="
-      $paused = !$paused;
-      @post('/demos/story-time/control')
-    ">
-      <span data-text="$paused ? '▶ Resume' : '⏸ Pause'"></span>
-    </button>
-    <label>
-      Speed:
-      <input type="range" min="0" max="1000" step="1"
-        data-bind:wps
-        data-on:input="@post('/demos/story-time/control')">
-      <span data-text="$wps"></span> wps
-    </label>
+  <div id="book-contents-wrapper">
+    <!-- playback controls for book streaming -->
+    <div data-show="$connId">
+      <button data-on:click="
+        $paused = !$paused;
+        @post('/demos/story-time/control')
+      ">
+        <span data-text="$paused ? '▶ Resume' : '⏸ Pause'"></span>
+      </button>
+      <label>
+        Speed:
+        <input type="range" min="0" max="1000" step="1"
+          data-bind:wps
+          data-on:input="@post('/demos/story-time/control')">
+        <span data-text="$wps"></span> wps
+      </label>
+    </div>
+    <section id="book-contents"></section>
   </div>
-  <section id="book-contents"></section>
 </div>
 {% endblock %}

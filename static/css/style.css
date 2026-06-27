@@ -1,25 +1,61 @@
 #story-time-wrapper {
-  header ul {
-    align-content: center;
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
+  display: flex;
 
-    li {
-      max-width: 25%;
+  header {
+    ul {
+      align-content: center;
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
 
-      button {
-        aspect-ratio: 1 / 1.5;
-        display: block;
-        overflow: hidden;
-        cursor: pointer;
+      li {
+        max-width: 25%;
+
+        button {
+          aspect-ratio: 1 / 1.5;
+          display: block;
+          overflow: hidden;
+          cursor: pointer;
+        }
       }
+    }
+  }
+
+  &:has(li.active) {
+    header {
+      width: 30%;
+
+      li.active {
+        max-width: 100%;
+        order: -1;
+        width: 100%;
+      }
+
+      li:not(.active) {
+        max-width: 50%;
+        width: 50%;
+      }
+    }
+
+    #book-contents-wrapper {
+      padding: 0 2em;
+      width: 70%;
     }
   }
 }
 
+#book-contents-wrapper {
+}
+
 #book-contents {
-  overflow: auto;
   display: flex;
   flex-direction: column-reverse;
+  font-family: Serif;
+  font-size: 1.25em;
+  line-height: 2;
+  overflow: auto;
+  max-height: 80vh;
 }
