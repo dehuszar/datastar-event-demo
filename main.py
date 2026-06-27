@@ -75,6 +75,13 @@ async def build_book_contents(snippet, word_offset: int, conn_id: str):
     current_text = ""
     current_word_prefix = "<span class='current-word'>"
     current_word_suffix = "</span>"
+    scroll_script = """
+        <script>
+            var element = document.getElementById('book-contents');
+            console.log(element.scrollHeight);
+            element.scrollTop = element.scrollHeight;
+        </script>
+    """
 
     for i, word in enumerate(snippet):
         if i < word_offset:
@@ -97,7 +104,7 @@ async def build_book_contents(snippet, word_offset: int, conn_id: str):
         )
         current_text += f" {formatted_text}"
         yield ServerSentEventGenerator.patch_elements(
-            f"<section id='book-contents'>{current_text}</section>"
+            f"<section id='book-contents'>{current_text}{scroll_script}</section>"
         )
         await asyncio.sleep(delay)
 
