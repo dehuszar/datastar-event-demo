@@ -3,7 +3,7 @@
 1. Run `./build.sh` to build and tag the docker container housing the Python environment for local use.
 2. Run `./start.sh` to start the server up.
 
-FastAPI is set to hot-reload changes to files in the mounted volume, so you shouldn't need to do any fiddling once it's running.
+FastAPI is set to hot-reload changes to files in the mounted volume, so you shouldn't need to do any fiddling once it's running. Automatic reloading of the browser is not yet set up.
 
 Go to <http://localhost:8000> to view the home page. The site will give you instructions from there.
 
