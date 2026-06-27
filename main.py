@@ -7,6 +7,7 @@
 # [tool.uv.sources]
 # ///
 
+from os import replace
 import uuid
 from pathlib import Path
 from fastapi import FastAPI, Request
@@ -72,6 +73,8 @@ async def story_time(request: Request):
 async def build_book_contents(snippet, word_offset: int, conn_id: str):
     """Stream words, checking per-connection pause/speed state."""
     current_text = ""
+    current_word_prefix = "<span class='current-word'>"
+    current_word_suffix = "</span>"
 
     for i, word in enumerate(snippet):
         if i < word_offset:
@@ -86,7 +89,12 @@ async def build_book_contents(snippet, word_offset: int, conn_id: str):
 
         delay = 1.0 / control["wps"] if control["wps"] > 0 else 0.1
 
-        formatted_text = word.replace("\n", "<br>")
+        formatted_text = (
+            current_word_prefix + word.replace("\n", "<br>") + current_word_suffix
+        )
+        current_text = current_text.replace(f"{current_word_prefix}", "").replace(
+            f"{current_word_suffix}", ""
+        )
         current_text += f" {formatted_text}"
         yield ServerSentEventGenerator.patch_elements(
             f"<section id='book-contents'>{current_text}</section>"
@@ -112,10 +120,7 @@ async def read_book(request: Request, signals: ReadSignals):
 
     # Read the entire content of the file
     content = file.read()
-    # FIXME :: need to start the content after the following marker:
-    # *** START OF THE PROJECT GUTENBERG EBOOK <name of book> ***
-    # can probably just find that marker and set the word_offset to be that number + 1
-    # Also need to ensure \n characters are used to assemble <p> tags
+    # offset the start of content to after the gutenberg marker
     marker = "*** START OF THE PROJECT GUTENBERG EBOOK "
     marker_index = content.find(marker)
     if marker_index != -1:

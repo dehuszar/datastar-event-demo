@@ -51,11 +51,16 @@
 }
 
 #book-contents {
-  display: flex;
   flex-direction: column-reverse;
   font-family: Serif;
   font-size: 1.25em;
   line-height: 2;
   overflow: auto;
   max-height: 80vh;
+  transition: all 0.5s;
+
+  .current-word {
+    font-size: 1.4em;
+    line-height: 1;
+  }
 }
