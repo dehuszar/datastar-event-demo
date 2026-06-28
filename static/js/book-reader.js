@@ -1,8 +1,9 @@
 class BookReader extends HTMLElement {
   connectedCallback() {
+    // timeout is used to ensure component has had a chance to parse the nested
+    // content before setting up the observer
     setTimeout(() => {
       const contents = this.querySelector("#book-contents");
-      console.log(contents);
 
       const bookContentObserver = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
