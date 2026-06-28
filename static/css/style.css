@@ -40,14 +40,11 @@
       }
     }
 
-    #book-contents-wrapper {
+    book-reader {
       padding: 0 2em;
       width: 70%;
     }
   }
-}
-
-#book-contents-wrapper {
 }
 
 #book-contents {

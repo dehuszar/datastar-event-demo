@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block components %}
+<script src="/static/js/book-reader.js"></script>
+{% endblock %}
 {% set is_secondary_page = True %}
 {% block header %}{% endblock %}
 {% block content %}
@@ -35,7 +38,7 @@
       </li>
     </ul>
   </header>
-  <div id="book-contents-wrapper">
+  <book-reader>
     <!-- playback controls for book streaming -->
     <div data-show="$connId">
       <button data-on:click="
@@ -52,7 +55,7 @@
         <span data-text="$wps"></span> wps
       </label>
     </div>
-    <section id="book-contents"></section>
-  </div>
+    <article id="book-contents"></article>
+  </book-reader>
 </div>
 {% endblock %}
