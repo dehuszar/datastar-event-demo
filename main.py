@@ -113,7 +113,7 @@ async def read_book(request: Request, signals: ReadSignals):
     pause_event.set()  # start unpaused
     connections[conn_id] = {
         "pause_event": pause_event,
-        "wps": (signals or {}).get("wps", 5),
+        "wps": (signals or {}).get("wps", 10),
     }
 
     file = open(f"./static/books/{book_title}.txt", "r")
