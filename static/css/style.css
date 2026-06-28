@@ -16,9 +16,12 @@
 
         button {
           aspect-ratio: 1 / 1.5;
+          background: none;
+          border: none;
+          cursor: pointer;
           display: block;
           overflow: hidden;
-          cursor: pointer;
+          padding: 0.5em;
         }
       }
     }
@@ -41,8 +44,12 @@
     }
 
     book-reader {
-      padding: 0 2em;
+      padding: 0 0 0 4em;
       width: 70%;
+
+      aside {
+        margin: 0 0 1em 0;
+      }
     }
   }
 }
@@ -54,7 +61,7 @@
   line-height: 2;
   overflow-y: auto;
   max-height: 80vh;
-  padding-bottom: 2em;
+  padding: 0 3.2em 0 0;
   scroll-behavior: smooth;
   transition: all 0.5s;
 
