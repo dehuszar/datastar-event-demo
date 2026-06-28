@@ -13,13 +13,25 @@
   <header>
     <ul>
       <li data-class:active="$selectedBook == '1'">
-        <button data-on:click="@get('/demos/story-time/read/common-sense--thomas-paine');$selectedBook='1';$paused=false" title="Common Sense, by Thomas Paine"><img src="/static/books/common-sense-cover.jpg" alt="book cover for Common Sense, by Thomas Paine"></button>
+        <button
+          data-on:click="@get('/demos/story-time/read/common-sense--thomas-paine', {openWhenHidden: true});$selectedBook='1';$paused=false"
+          title="Common Sense, by Thomas Paine">
+            <img src="/static/books/common-sense-cover.jpg" alt="book cover for Common Sense, by Thomas Paine">
+        </button>
       </li>
       <li data-class:active="$selectedBook == '2'">
-        <button data-on:click="@get('/demos/story-time/read/the-souls-of-black-folk--web-dubois');$selectedBook='2';$paused=false" title="The Souls of Black Folk, by W.E.B DuBois"><img src="/static/books/the-souls-of-black-folk-cover.jpg" alt="book cover for The Souls of Black Folk, by W.E.B DuBois"></button>
+        <button
+          data-on:click="@get('/demos/story-time/read/the-souls-of-black-folk--web-dubois', {openWhenHidden: true});$selectedBook='2';$paused=false"
+          title="The Souls of Black Folk, by W.E.B DuBois">
+            <img src="/static/books/the-souls-of-black-folk-cover.jpg" alt="book cover for The Souls of Black Folk, by W.E.B DuBois">
+        </button>
       </li>
       <li data-class:active="$selectedBook == '3'">
-        <button data-on:click="@get('/demos/story-time/read/the-secret-of-chimneys--agatha-christie');$selectedBook='3';$paused=false" title="The Secret of Chimneys, by Agatha Christie"><img src="/static/books/the-secret-of-chimneys-cover.jpg" alt="The Secret of Chimneys, by Agatha Christie"></button>
+        <button
+          data-on:click="@get('/demos/story-time/read/the-secret-of-chimneys--agatha-christie', {openWhenHidden: true});$selectedBook='3';$paused=false"
+          title="The Secret of Chimneys, by Agatha Christie">
+            <img src="/static/books/the-secret-of-chimneys-cover.jpg" alt="The Secret of Chimneys, by Agatha Christie">
+        </button>
       </li>
     </ul>
   </header>
