@@ -3,4 +3,61 @@
 {% block header %}{% endblock %}
 {% block content %}
 <h2>{% block title %}The Backend{% endblock %}</h2>
+<p>
+  I have been developing for the web in one form or another since 2006.  As 
+  the use of JavaScript became more and more powerful in the browser, it also 
+  became a language usable on the backend via Node.js.  This pervasiveness of
+  JavaScript across the stack means that I have been able to do a lot with
+  just this one language. Having now taken my career from the browser, to the 
+  backend, to devops and infrastructure, to management, and now back to 
+  full-stack development, I figured it was high time to start learning other 
+  backend languages.  This project is focusing on Python.
+</p>
+<p>
+  This site uses the Python-based FastAPI server, and UV manages the build
+  process.  While FastAPI--and most other API frameworks are generally used to 
+  return JSON data, this one is returning HTML pages, HTML partials, and event 
+  streams.  It's not _uncommon_ for web servers and APIs to also return static
+  pages, but because of an accident of history, we tend to think of APIs (and 
+  specifically REST APIs) as returning JSON.
+</p>
+<p>
+  Carson Gross, creator of the hypermedia library <a href="https://htmx.org/">
+  htmx</a>, writes very well about this history in his book <a href="https://hypermedia.systems/components-of-a-hypermedia-system/#_rest">Hypermedia Systems</a>,
+  so I won't go into the whole history here, but it is definitely worth a read.
+  The short version of the tale is that REST API's are specifically supposed to
+  return the "state of the application", but that was intended to refer to the 
+  <em>rendered</em> state and the relevant user controls; i.e. markup which 
+  included buttons, forms, and links.  Very much the inverse of how the 
+  industry has come to use the term.
+</p>
+<p>
+  This backend doesn't do <em>that much</em> but it is set up to be more of a 
+  RESTful API in that traditional sense.  Even though it is server-rendered, 
+  it remains reactive in the sense that the server is able to very quickly send
+  full pages or small snippets of markup that is computationally very 
+  inexpensive to push into the DOM--far less expensive than sending data to a 
+  client application to be processed via JavaScript.  In fact, by leaning into 
+  server-rendered pages and the latest web-standards, we get to rely on highly
+  optimized browser capabilities which are written in Rust and C++.
+</p>
+<p>
+  The more time I spend writing for the web in this way, much like I did early
+  in my career, decorated with tools like Datastar, another hypermedia library
+  based on many of the goals and ideas behind htmx, the more I find the
+  server-rendered page to be lighter, leaner, more effective and scalable, and
+  less complex or expensive than the single-page client applications and HTTP
+  API's that dominate the industry's mindshare.
+</p>
+<p>
+  One interesting thing of note that this backend does, is open up an <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">SSE</a>
+  stream for certain responses using Datastar's Python SDK.  This allows the
+  server to stream data, stateful markup, or in the case of the story time demo,
+  text content in real-time.  This makes the kinds of eventual consistency 
+  concerns that come with event-driven systems fairly trivial to address in the
+  browser.  This demo project does not directly integrate an event-based
+  workflow, but the <a href="/demos/story-time">Story Time</a> demo should at
+  least illustrate how fast this toolchain can handle incoming events in the
+  browser.
+</p>
 {% endblock %}
